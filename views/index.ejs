@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>What's you Favorite Music Genre</title>
@@ -7,43 +8,48 @@
   <link rel="stylesheet" href="font-awesome.min.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;500&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <section class="containes">
-  <h1>Sometimes I have Thoughts</h1>
-  <h2>Journal on the Go</h2>
+    <h1>Sometimes I have Thoughts</h1>
+    <h2>Journal on the Go</h2>
 
-  <form action="/messages" method="POST">
-    <!-- <input type="text" placeholder="name" name="name"> -->
-    <input type="text" placeholder="What's happening?" name="msg">
-    <input type="date" name="dueDate" id="todo-date">
-    <button type="submit">Post</button>
+    <form action="/messages" method="POST">
+      <!-- <input type="text" placeholder="name" name="name"> -->
+      <input type="text" placeholder="What's happening?" name="msg">
+      <input type="date" name="postDate" id="todo-date">
+      <button type="submit">Post</button>
 
-  </form>
-  <!-- <h3></h3> -->
-  <ul class="messages">
-  <% for(let i=0; i<messages.length; i++) {%>
-    <li class="message">
-      <!-- <span><%= messages[i].name %></span> -->
-      <span><%= messages[i].msg %></span>
-      <span><%= messages[i].thumbUp %></span>
-      <!-- <span><%= messages[i].thumbDown %></span> -->
-      <span><i class="fa fa-star" aria-hidden="true"></i></span>
-      <span><i class="fa fa-trash" aria-hidden="true"></i></span>
-      <!-- <form action="/messages" method="POST">
-        <!-- <input type="text" placeholder="name" name="name"> -->
-        <!-- <input type="text" placeholder="Comment" name="msg"> -->
-        <!-- <button type="submit">Post</button> -->
-      <!-- </form> -->
-    </li>
-  <% } %>
-  </ul>
+    </form>
+    <!-- <h3></h3> -->
+    <ul class="messages">
+      <% for(let i=0; i<messages.length; i++) {%>
+        <li class="message">
+          <span class="msg"><%= messages[i].msg %></span>
+          <span class="fecha"><%= messages[i].fecha %></span>
+          <span class="mood"><%= messages[i].mood %></span>
+          <select name="mood" id="energy">
+            <option value="empty">How did you feel today?</option>
+            <option value="🥹">🥹</option>
+            <option value="😄">😄</option>
+            <option value="😔">😔</option>
+            <option value="🙄">🙄</option>
+          </select>
+          <button class="elmood">Feels</button>
+          <span class="trash">
+            <i class="fa fa-trash" aria-hidden="true"></i></span>
+        </li>
+      <% } %>
+    </ul>
+    
 
 
   </section>
   <script src="main.js"></script>
 
 </body>
+
 </html>

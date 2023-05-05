@@ -1,19 +1,20 @@
-const thumbUp = document.getElementsByClassName("fa-star")
+const mood = document.getElementsByClassName("elmood")
 const trash = document.getElementsByClassName("fa-trash")
 const editButtons = document.querySelectorAll('.edit-button')
 
-Array.from(thumbUp).forEach(function(element) {
+Array.from(mood).forEach(function(element) {
   element.addEventListener('click', function(){
-    const name = this.parentNode.parentNode.childNodes[1].innerText
-    const msg = this.parentNode.parentNode.childNodes[3].innerText
-    const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
+    const msg = this.parentNode.childNodes[1].innerText
+    const fecha= this.parentNode.childNodes[3].innerText
+    const mood = this.parentNode.childNodes[7].value
+    console.log(fecha,msg, mood)
     fetch('messages', {
       method: 'put',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        'name': name,
+        'fecha': fecha,
         'msg': msg,
-        'thumbUp':thumbUp
+        'mood':mood
       })
     })
     .then(response => {
@@ -29,15 +30,15 @@ Array.from(thumbUp).forEach(function(element) {
 
 Array.from(trash).forEach(function(element) {
   element.addEventListener('click', function(){
-    // const name = this.parentNode.parentNode.childNodes[1].innerText
-    const msg = this.parentNode.parentNode.childNodes[3].innerText
+    const msg = this.parentNode.parentNode.childNodes[1].innerText
+    const fecha = this.parentNode.parentNode.childNodes[3].innerText
     fetch('messages', {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        // 'name': name,
+        'fecha': fecha,
         'msg': msg
       })
     }).then(function (response) {

@@ -32,7 +32,12 @@ app.get('/', (req, res) => {
 })
 
 app.post('/messages', (req, res) => {
-  db.collection('messages').insertOne({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
+  db.collection('messages').insertOne({
+    fecha: req.body.postDate, 
+    msg: req.body.msg, 
+    mood: ''
+  }, 
+    (err, result) => {
     if (err) return console.log(err)
     console.log('saved to database')
     res.redirect('/')
@@ -41,35 +46,23 @@ app.post('/messages', (req, res) => {
 
 app.put('/messages', (req, res) => {
   db.collection('messages')
-  .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-    $set: {
-      thumbUp:req.body.thumbUp + 1
-    }
-  }, {
-    sort: {_id: -1},
-    upsert: true
-  }, (err, result) => {
-    if (err) return res.send(err)
-    res.send(result)
-  })
-})
-app.put('/messages/thumbDown', (req, res) => {
-  db.collection('messages')
-  .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-    $set: {
-      thumbUp: parseInt(req.body.thumbUp) - 1
-    }
-  }, {
-    sort: {_id: -1},
-    upsert: true
+  .findOneAndUpdate({fecha: req.body.fecha, msg: req.body.msg}, 
+    {
+      $set: {
+        mood:req.body.mood
+      }
+    },
+    {
+  upsert: true
   }, (err, result) => {
     if (err) return res.send(err)
     res.send(result)
   })
 })
 
+
 app.delete('/messages', (req, res) => {
-  db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+  db.collection('messages').findOneAndDelete({fecha: req.body.fecha, msg: req.body.msg}, (err, result) => {
     if (err) return res.send(500, err)
     res.send('Message deleted!')
   })
